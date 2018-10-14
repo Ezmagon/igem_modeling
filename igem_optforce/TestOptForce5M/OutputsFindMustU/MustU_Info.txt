@@ -1,0 +1,3 @@
+Reactions	Min Flux in Wild-type strain	Max Flux in Wild-type strain	Min Flux in Mutant strain	Max Flux in Mutant strain
+r_1992	-3.3122	-1.7946	-1.0000	0.0000
+r_2096	-18.5347	-6.6408	-5.4480	0.6500

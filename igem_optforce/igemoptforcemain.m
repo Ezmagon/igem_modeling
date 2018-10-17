@@ -131,7 +131,30 @@ nSets = 20;
          fprintf("done\n");
 
 disp(optForceSets)
+%% second run excluding reactions found in previous run as well as echange reactions
+[SelExc, SelUpt] = findExcRxns(model);
+idx = find(SelExc);
+exchangeRxns = model.rxns(idx);
+excludedRxns = unique([exchangeRxns; 'r_1215'; 'r_0148']);
+mustU=setdiff(mustU,excludedRxns);
+mustL=setdiff(mustL,excludedRxns);
+k = 2;
+nSets = 5;
+constrOpt = struct('rxnList', {{'r_4041'}}, 'values', 0);
 
+runID = 'Test_local6';
+
+
+[optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets] = ...
+    optForce(model, targetRxn, biomassRxn, mustU, mustL, ...
+             minFluxesW, maxFluxesW, minFluxesM, maxFluxesM, ...
+             'k', k, 'nSets', nSets, 'constrOpt', constrOpt, ...
+             'runID', runID, 'outputFolder', 'OutputsOptForce', ...
+             'outputFileName', 'OptForce', 'printExcel', 1, 'printText', 1, ...
+             'printReport', 1, 'keepInputs', 1, 'printLevel', 1);
+         
+         fprintf('done\n');
+disp(optForceSets)
 %% Acknowledgments
 % I would to thanks to the research group of Costas D. Maranas who were
 % willing to answer all questions I had while running this algorithm
